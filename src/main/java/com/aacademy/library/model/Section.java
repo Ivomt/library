@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,4 +24,7 @@ public class Section {
     @NotNull
     @Column(unique = true, nullable = false)
     private String name;
+
+    @ManyToMany(mappedBy = "sections")
+    private Set<Block> blocks;
 }

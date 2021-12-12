@@ -38,6 +38,24 @@ public class ShelfController {
         return ResponseEntity.ok(shelfDtos);
 
     }
+
+    @GetMapping(value = "/id/{id}")
+    public ResponseEntity <ShelfDto>findById(@PathVariable Long id) {
+        return ResponseEntity.ok(shelfConverter.toShelfDto(shelfService.findById(id)));
+
+    }
+    @GetMapping(value = "number/{number}")
+    public ResponseEntity<ShelfDto>findByNumber(@PathVariable Integer number) {
+        return ResponseEntity.ok(shelfConverter.toShelfDto(shelfService.findByNumber(number)));
+    }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ShelfDto>update(@RequestBody @Valid ShelfDto shelfDto,@PathVariable Long id){
+        Shelf shelf = shelfConverter.toShelf(shelfDto);
+        Shelf updatedShelf = shelfService.update(shelf,id);
+        return ResponseEntity.ok(shelfConverter.toShelfDto(updatedShelf));
+    }
+
+
     @PostMapping
     public ResponseEntity<ShelfDto>save (@RequestBody @Valid ShelfDto shelfDto) {
         Shelf shelf = shelfConverter.toShelf(shelfDto);
